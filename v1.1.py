@@ -5,10 +5,9 @@ import tkinter as tk
 import requests
 
 
-key = 'c5f36360'
-
-serviceurl = 'http://www.omdbapi.com/?'
-apikey = '&apikey='+key
+omdb_key = 'c5f36360'
+omdb_serviceurl = 'http://www.omdbapi.com/?'
+omdb_apikey = '&apikey='+ omdb_key
 
 ###########################################################################
 
@@ -23,7 +22,7 @@ label.pack(padx = 10, pady = 50)
 
 def search_movie(title):
 
-    url = serviceurl + apikey + '&s=' + title
+    omdb_url = omdb_serviceurl + omdb_apikey + '&s=' + title
     json_data = requests.get(url).json()
 
 
