@@ -23,7 +23,7 @@ label.pack(padx = 10, pady = 50)
 def search_movie(title): #"Function" to search for movies
 
     omdb_url = omdb_serviceurl + omdb_apikey + '&s=' + title #Combined as one URL to pull JSON data from the API | '&s=' specifies to search for a movie | Check API website for other options, poosibly for extras?
-    json_data = requests.get(url).json() #Actual Request
+    json_data = requests.get(omdb_url).json() #Actual Request
 
 
     for item in json_data['Search']: #Loop to itterate through results
