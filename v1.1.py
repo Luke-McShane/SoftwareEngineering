@@ -24,11 +24,14 @@ def search_movie(title): #"Function" to search for movies
 
     omdb_url = omdb_serviceurl + omdb_apikey + '&s=' + title #Combined as one URL to pull JSON data from the API | '&s=' specifies to search for a movie | Check API website for other options, poosibly for extras?
     json_data = requests.get(omdb_url).json() #Actual Request
-
+    list = []
 
     for item in json_data['Search']: #Loop to itterate through results
         
-        return ("Movie: " + item['Title'] + "\n" + "Released: " + item['Year']) # Itteriates for each of of the items in the JSON query | Grabs title and release year | 
+        list.append("Movie: " + item['Title'] + "\n" + "Released: " + item['Year'])
+
+    return list
+
 
 
 
