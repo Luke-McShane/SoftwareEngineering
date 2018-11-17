@@ -1,18 +1,19 @@
 from tkinter import *
+from tkinter import messagebox
 import json
 import urllib.request, urllib.parse, urllib.error
 import tkinter as tk
 import requests
-from tkinter import messagebox
+
 
 
 ###########################################################################
-
 window = Tk()
 window.geometry("530x530")
 window.configure(background='palegreen4')
 
 window.title('Movie Finder')
+
 
 list = []
 
@@ -51,11 +52,13 @@ def TMDB_Search(title):
     return list
 
 def result1():
-
+    
     title = searchBox.get()
     newwin = tk.Tk()
     newwin.geometry("500x500")
     newwin.configure(background='palegreen4')
+    newwin.title('Movie Search Results')
+    
     try:
         T = Text(newwin,height=2, width=40)
         T.pack()
@@ -104,9 +107,11 @@ def result1():
         T7.insert(END, OMDB_Search(title)[7])
         btn_addF8 = Button(newwin, text = 'Add to wishlist', command=lambda : wish(OMDB_Search(title)[7]))
         btn_addF8.pack()
-        
+
+
     except:
-        messagebox.showerror("error", "Movie Not Found")
+        newwin.destroy()
+        messagebox.showerror("Error!", "Movie Not Found")
         
 def result2():
 
@@ -114,7 +119,7 @@ def result2():
     newwin = tk.Tk()
     newwin.geometry("500x500")
     newwin.configure(background='palegreen4')
-
+    newwin.title('Movie Search Results')
     
     try:
         T = Text(newwin,height=2, width=40)
@@ -165,17 +170,17 @@ def result2():
         btn_addF8 = Button(newwin, text = 'Add to wishlist', command=lambda : wish(TMDB_Search(title)[7]))
         btn_addF8.pack()
         
-        
     except:
-        messagebox.showerror("error", "Movie Not Found")
+        newwin.destroy()
+        messagebox.showerror("Error!", "Movie Not Found")
+        
 
     
 def wish(movie_to_add):
-    
     f = open("wish.txt","a+")
     f.write(movie_to_add + '\n')
     f.close()
-
+    messagebox.showinfo("Success!", "Your movie has been added to your wish list!")
 
 def wish_list():
 
@@ -205,7 +210,7 @@ def update_wlist(change):
     f = open("wish.txt","a+")
     f.truncate(0)
     f.write(change)
-    messagebox.showinfo("Success", "Your wish list has been updated!")
+    messagebox.showinfo("Success!", "Your wish list has been updated!")
 
 
 #Search box
