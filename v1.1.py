@@ -3,7 +3,7 @@ import json
 import urllib.request, urllib.parse, urllib.error
 import tkinter as tk
 import requests
-
+from tkinter import messagebox
 
 
 ###########################################################################
@@ -12,6 +12,8 @@ window = Tk()
 window.geometry("450x450")
 
 window.title('Movie Finder')
+
+list = []
 
 label = Label(window,text = 'Please enter a movie to search for:')
 label.pack(padx = 10, pady = 50)
@@ -23,7 +25,7 @@ def OMDB_Search(title):
 
     url = serviceurl + apikey + '&s=' + title
     json_data = requests.get(url).json()
-    list = []
+
 
     for item in json_data['Search']:
 
@@ -39,7 +41,7 @@ def TMDB_Search(title):
 
     url = 'https://api.themoviedb.org/3/search/movie?api_key=399f6191c9956c7ac44da18aa4461125&query=' + title
     json_data = requests.get(url).json()
-    list = []
+    
 
     for item in json_data['results']:
 
@@ -52,87 +54,98 @@ def result1():
     title = searchBox.get()
     newwin = tk.Tk()
     newwin.geometry("400x400")
+    
+    try:
+        T = Text(newwin,height=2, width=30)
+        T.pack()
+        T.insert(END, OMDB_Search(title)[0])
+        btn_addF1 = Button(newwin, text = 'Add to wishlist', command=lambda : wish(OMDB_Search(title)[0]))
+        btn_addF1.pack()
 
-    T = Text(newwin,height=2, width=30)
-    T.pack()
-    T.insert(END, OMDB_Search(title)[0])
-    btn_addF1 = Button(newwin, text = 'Add to favourites', command=fav(OMDB_Search(title)[0]))
-    btn_addF1.pack()
+        T1 = Text(newwin,height=2, width=30)
+        T1.pack()
+        T1.insert(END, OMDB_Search(title)[1])
+        btn_addF2 = Button(newwin, text = 'Add to wishlist', command=lambda : wish(OMDB_Search(title)[1]))
+        btn_addF2.pack()
 
-    T1 = Text(newwin,height=2, width=30)
-    T1.pack()
-    T1.insert(END, OMDB_Search(title)[1])
-    btn_addF2 = Button(newwin, text = 'Add to favourites', command=fav(OMDB_Search(title)[1]))
-    btn_addF2.pack()
+        T2 = Text(newwin,height=2, width=30)
+        T2.pack()
+        T2.insert(END, OMDB_Search(title)[2])
+        btn_addF3 = Button(newwin, text = 'Add to wishlist', command=lambda : wish(OMDB_Search(title)[2]))
+        btn_addF3.pack()
 
-    T2 = Text(newwin,height=2, width=30)
-    T2.pack()
-    T2.insert(END, OMDB_Search(title)[2])
-    btn_addF3 = Button(newwin, text = 'Add to favourites', command=fav(OMDB_Search(title)[2]))
-    btn_addF3.pack()
+        T3 = Text(newwin,height=2, width=30)
+        T3.pack()
+        T3.insert(END, OMDB_Search(title)[3])
+        btn_addF4 = Button(newwin, text = 'Add to wishlist', command=lambda : wish(OMDB_Search(title)[3]))
+        btn_addF4.pack()
 
-    T3 = Text(newwin,height=2, width=30)
-    T3.pack()
-    T3.insert(END, OMDB_Search(title)[3])
-    btn_addF4 = Button(newwin, text = 'Add to favourites', command=fav(OMDB_Search(title)[3]))
-    btn_addF4.pack()
-
-    T4 = Text(newwin,height=2, width=30)
-    T4.pack()
-    T4.insert(END, OMDB_Search(title)[4])
-    btn_addF5 = Button(newwin, text = 'Add to favourites', command=fav(OMDB_Search(title)[4]))
-    btn_addF5.pack()
-
+        T4 = Text(newwin,height=2, width=30)
+        T4.pack()
+        T4.insert(END, OMDB_Search(title)[4])
+        btn_addF5 = Button(newwin, text = 'Add to wishlist', command=lambda : wish(OMDB_Search(title)[4]))
+        btn_addF5.pack()
+        
+    except:
+        messagebox.showerror("error", "Movie Not Found")
+        
 def result2():
 
     title = searchBox.get()
     newwin = tk.Tk()
     newwin.geometry("400x400")
 
-    T = Text(newwin,height=2, width=30)
-    T.pack()
-    T.insert(END, TMDB_Search(title)[0])
-    btn_addF1 = Button(newwin, text = 'Add to favourites', command=fav(TMDB_Search(title)[0]))
-    btn_addF1.pack()
+    
+    try:
+        T = Text(newwin,height=2, width=30)
+        T.pack()
+        T.insert(END, TMDB_Search(title)[0])
+        btn_addF1 = Button(newwin, text = 'Add to wishlist', command=lambda : wish(TMDB_Search(title)[0]))
+        btn_addF1.pack()
 
-    T1 = Text(newwin,height=2, width=30)
-    T1.pack()
-    T1.insert(END, TMDB_Search(title)[1])
-    btn_addF2 = Button(newwin, text = 'Add to favourites', command=fav(TMDB_Search(title)[1]))
-    btn_addF2.pack()
+        T1 = Text(newwin,height=2, width=30)
+        T1.pack()
+        T1.insert(END, TMDB_Search(title)[1])
+        btn_addF2 = Button(newwin, text = 'Add to wishlist', command=lambda : wish(TMDB_Search(title)[1]))
+        btn_addF2.pack()
 
-    T2 = Text(newwin,height=2, width=30)
-    T2.pack()
-    T2.insert(END, TMDB_Search(title)[2])
-    btn_addF3 = Button(newwin, text = 'Add to favourites', command=fav(TMDB_Search(title)[2]))
-    btn_addF3.pack()
+        T2 = Text(newwin,height=2, width=30)
+        T2.pack()
+        T2.insert(END, TMDB_Search(title)[2])
+        btn_addF3 = Button(newwin, text = 'Add to wishlist', command=lambda : wish(TMDB_Search(title)[2]))
+        btn_addF3.pack()
 
-    T3 = Text(newwin,height=2, width=30)
-    T3.pack()
-    T3.insert(END, TMDB_Search(title)[3])
-    btn_addF4 = Button(newwin, text = 'Add to favourites', command=fav(TMDB_Search(title)[3]))
-    btn_addF4.pack()
+        T3 = Text(newwin,height=2, width=30)
+        T3.pack()
+        T3.insert(END, TMDB_Search(title)[3])
+        btn_addF4 = Button(newwin, text = 'Add to wishlist', command=lambda : wish(TMDB_Search(title)[3]))
+        btn_addF4.pack()
 
-    T4 = Text(newwin,height=2, width=30)
-    T4.pack()
-    T4.insert(END, TMDB_Search(title)[4])
-    btn_addF5 = Button(newwin, text = 'Add to favourites', command=fav(TMDB_Search(title)[4]))
-    btn_addF5.pack()
+        T4 = Text(newwin,height=2, width=30)
+        T4.pack()
+        T4.insert(END, TMDB_Search(title)[4])
+        btn_addF5 = Button(newwin, text = 'Add to wishlist', command=lambda : wish(TMDB_Search(title)[4]))
+        btn_addF5.pack()
 
-def fav(movie_to_add):
+        
+    except:
+        messagebox.showerror("error", "Movie Not Found")
 
-    f= open("fav.txt","a+")
+    
+def wish(movie_to_add):
+    
+    f = open("wish.txt","a+")
     f.write(movie_to_add + '\n')
     f.close()
 
 
-def favourites():
+def wish_list():
 
     title = searchBox.get()
     newwin2 = tk.Tk()
     newwin2.geometry("400x400")
 
-    f=open("fav.txt", "r")
+    f=open("wish.txt", "r")
     if f.mode == 'r':
         contents = f.read()
 
@@ -152,12 +165,12 @@ searchBox.insert(0, "")
 btn_search = Button(window, text = 'Search OMDB', command=result1)
 btn_search.pack(padx = 120, pady = 20)
 
-#Searcg Button for TMDB
+#Search Button for TMDB
 btn_search = Button(window, text = 'Search TMDB', command=result2)
 btn_search.pack(padx = 120, pady = 30)
 
-#Favourites
-btn_search = Button(window, text = 'Favourites', command=favourites)
+#Wish list
+btn_search = Button(window, text = 'Wish List', command=wish_list)
 btn_search.pack(padx = 135, pady = 20)
 
 #Exit button
