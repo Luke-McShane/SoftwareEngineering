@@ -20,8 +20,6 @@ window.configure(background='palegreen4')
 #Title of the main window
 window.title('Movie Finder')
 
-#Creates a public variable for list.
-list = []
 
 #Text on the main window.
 label = Label(window,text = 'Please enter a movie to search for:', background='palegreen4')
@@ -33,7 +31,7 @@ def OMDB_Search(title):
     key = 'c5f36360'
     serviceurl = 'http://www.omdbapi.com/?'
     apikey = '&apikey='+key
-
+    list = []
     #Retrieves the data.
     url = serviceurl + apikey + '&s=' + title
     json_data = requests.get(url).json()
@@ -52,7 +50,7 @@ def TMDB_Search(title):
     key = '399f6191c9956c7ac44da18aa4461125'
     serviceurl = 'https://api.themoviedb.org/3/search/movie?'
     apikey = 'apikey='+key
-
+    list = []
     #Retrieves the data.
     url = 'https://api.themoviedb.org/3/search/movie?api_key=399f6191c9956c7ac44da18aa4461125&query=' + title
     json_data = requests.get(url).json()
